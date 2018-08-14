@@ -1,6 +1,7 @@
 var database = firebase.database();
 var userID = window.location.search.match(/\?id=(.*)/)[1];
 
+
 $(document).ready(function() {
     getTasksFromDB();
     $(".add-tasks").click(addTasksClick);
@@ -34,19 +35,11 @@ function getTasksFromDB() {
             snapshot.forEach(function(childSnapshot) {
                 var childKey = childSnapshot.key;
                 var childData = childSnapshot.val();
-                userListItem(childData.Name, childKey)
+                $(".user-name").append(`${childData.Name}`);
             });
         });
 }
 
-function userListItem(name, key) {
-    $(".users-list").append(`
-   <li>
-     <span>${name}</span>
-     <button class="follow" data-task-id=${key}>Follow</button>
-     <button class="unfollow" data-task-id=${key}>Unfollow</button>
-   </li>`);
-}
 
 function crudListItem(text, key) {
     $(".tasks-list").append(`
