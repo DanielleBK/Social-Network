@@ -1,6 +1,5 @@
 var database = firebase.database();
 var userID = window.location.search.match(/\?id=(.*)/)[1];
-var userIDName = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(function() {
   getTasksFromDB();
@@ -10,30 +9,24 @@ $(document).ready(function() {
 function addTasksClick(event) {
   event.preventDefault();
   var newTask = $(".tasks-input").val();
-  var taskFromDB = addTaskToDB(newTask);
-  crudListItem(newTask, taskFromDB.key)
+  var timeTask = new Date().getHours() + ':' + new Date().getMinutes(); 
+  var taskFromDB = addTaskToDB(newTask, timeTask);
+  crudListItem(newTask, timeTask, taskFromDB.key)
 }
 
-function addTaskToDB(text) {
+function addTaskToDB(text, time) {
   return database.ref("tasks/" + userID).push({
-    text: text
+    text: text,
+    time : time 
   });
 }
 
 function getTasksFromDB() {
-  database.ref("tasks/" + userID).once('value')
-  .then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      var childKey = childSnapshot.key;
-      var childData = childSnapshot.val();
-      crudListItem(childData.text, childKey)
-    });
-  });
 
   database.ref("users/" + userID).once('value')
-  .then(function(snapshot) {
-    $(".user-name").append(`${snapshot.val().Name}`);
-  });
+    .then(function (snapshot) {
+      $(".user-name").append(`${snapshot.val().Name}`);
+    });
 
   database.ref("users/").once('value')
     .then(function (snapshot) {
@@ -46,12 +39,22 @@ function getTasksFromDB() {
         }
       });
     });
-  }
 
-function crudListItem(text, key) {
+  database.ref("tasks/" + userID).once('value')
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var childKey = childSnapshot.key;
+      var childData = childSnapshot.val();
+      crudListItem(childData.text, childData.time, childKey)
+    });
+  });
+}
+
+function crudListItem(text, time, key) {
   $(".tasks-list").append(`
   <li>
-     <span>${text}</span>
+     <p>${$(".user-name").text()}<span>${time}</span></p>
+     <p>${text}</p>
      <button class="delete" data-task-id=${key}>Deletar</button>
      <button class="edit" data-task-id=${key}>Editar</button>
   </li>`);
