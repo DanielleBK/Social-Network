@@ -1,0 +1,20 @@
+h1{
+  display: flex;
+  justify-content: center;
+}
+form{
+  margin-left: 50px;
+}
+.modal-header{
+  background-color: blueviolet;
+  color: white;
+}
+.modal-body{
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+}
+.modal input{
+  margin: 5px;
+  border: solid blue 1px;
+}
