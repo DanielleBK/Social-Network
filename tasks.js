@@ -78,8 +78,9 @@ function crudListItem(text, time, key) {
 function updateTasksClick(event) {
     event.preventDefault();
     var newTask = $(".tasks-update").val();
-    var taskFromDB = addTaskToDB(newTask);
-    crudListItem(newTask, taskFromDB.key);
+    var timeTask = new Date().getHours() + ':' + new Date().getMinutes();
+    var taskFromDB = addTaskToDB(newTask, timeTask);
+    crudListItem(newTask, timeTask, taskFromDB.key);
     $(".tasks-update").parent().remove();
     $(".update-tasks").parent().remove();
 
