@@ -17,21 +17,21 @@ function signUpClick(event) {
 }
 
 function createUser(email, password, name, age) {
-  console.log(email, password, name, age);
+    console.log(email, password, name, age);
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(function(response) {
-        var userId = response.user.uid;
-        database.ref("users/" + userId).push({
-            Name: name,
-            Idade: age
-        });
+        .then(function(response) {
+            var userId = response.user.uid;
+            database.ref("users/" + userId).set({
+                Name: name,
+                Idade: age
+            });
 
-        redirectToTasks(userId);
-      })
-      .catch(function(error) {
-          handleError(error);
-      });
+            redirectToTasks(userId);
+        })
+        .catch(function(error) {
+            handleError(error);
+        });
 }
 
 function signInClick(event) {

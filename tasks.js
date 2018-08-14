@@ -1,6 +1,6 @@
 var database = firebase.database();
 var userID = window.location.search.match(/\?id=(.*)/)[1];
-
+var userIDName = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(function() {
     getTasksFromDB();
@@ -32,12 +32,22 @@ function getTasksFromDB() {
         });
     database.ref("users/" + userID).once('value')
         .then(function(snapshot) {
+            $(".user-name").append(`${snapshot.val().Name}`);
+        });
+
+
+    database.ref("users/").once('value')
+        .then(function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
+                console.log(childSnapshot.val())
                 var childKey = childSnapshot.key;
                 var childData = childSnapshot.val();
-                $(".user-name").append(`${childData.Name}`);
+                $(".users-list").append(`<li>${childSnapshot.val().Name}</li>`);
+
             });
         });
+
+
 }
 
 
