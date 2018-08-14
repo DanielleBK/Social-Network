@@ -3,61 +3,58 @@ var userID = window.location.search.match(/\?id=(.*)/)[1];
 var userIDName = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(function() {
-    getTasksFromDB();
-    $(".add-tasks").click(addTasksClick);
-
+  getTasksFromDB();
+  $(".add-tasks").click(addTasksClick);
 });
 
 function addTasksClick(event) {
-    event.preventDefault();
-    var newTask = $(".tasks-input").val();
-    var taskFromDB = addTaskToDB(newTask);
-    crudListItem(newTask, taskFromDB.key)
+  event.preventDefault();
+  var newTask = $(".tasks-input").val();
+  var taskFromDB = addTaskToDB(newTask);
+  crudListItem(newTask, taskFromDB.key)
 }
 
 function addTaskToDB(text) {
-    return database.ref("tasks/" + userID).push({
-        text: text
-    });
+  return database.ref("tasks/" + userID).push({
+    text: text
+  });
 }
 
 function getTasksFromDB() {
-    database.ref("tasks/" + userID).once('value')
-        .then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-                var childKey = childSnapshot.key;
-                var childData = childSnapshot.val();
-                crudListItem(childData.text, childKey)
-            });
-        });
-    database.ref("users/" + userID).once('value')
-        .then(function(snapshot) {
-            $(".user-name").append(`${snapshot.val().Name}`);
-        });
+  database.ref("tasks/" + userID).once('value')
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var childKey = childSnapshot.key;
+      var childData = childSnapshot.val();
+      crudListItem(childData.text, childKey)
+    });
+  });
 
+  database.ref("users/" + userID).once('value')
+  .then(function(snapshot) {
+    $(".user-name").append(`${snapshot.val().Name}`);
+  });
 
-    database.ref("users/").once('value')
-        .then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-                console.log(childSnapshot.val())
-                var childKey = childSnapshot.key;
-                var childData = childSnapshot.val();
-                $(".users-list").append(`<li>${childSnapshot.val().Name}</li>`);
-
-            });
-        });
-
-
-}
-
+  database.ref("users/").once('value')
+    .then(function (snapshot) {
+      var userName = $(".user-name");
+      snapshot.forEach(function (childSnapshot) {
+        var childKey = childSnapshot.key;
+        var childData = childSnapshot.val();
+        if (childData.Name !== userName.text()) {
+          $(".users-list").append(`<li>${childData.Name}</li>`);
+        }
+      });
+    });
+  }
 
 function crudListItem(text, key) {
-    $(".tasks-list").append(`
-   <li>
+  $(".tasks-list").append(`
+  <li>
      <span>${text}</span>
      <button class="delete" data-task-id=${key}>Deletar</button>
      <button class="edit" data-task-id=${key}>Editar</button>
-   </li>`);
+  </li>`);
 
     $(`button.delete[data-task-id="${key}"]`).click(function() {
         database.ref("tasks/" + userID + "/" + key).remove();
@@ -67,11 +64,10 @@ function crudListItem(text, key) {
     $(`button.edit[data-task-id="${key}"]`).click(function() {
         database.ref("tasks/" + userID + "/" + key).remove();
         $(this).parent().remove();
-        $(".tasks-list").append(`
-       <li>
-       <textarea class="tasks-update">${text}</textarea>
-         <button class="update-tasks">Update</button>
-       </li>`);
+        $(".tasks-list").append(`<li>
+        <textarea class="tasks-update">${text}</textarea>
+        <button class="update-tasks">Update</button>
+        </li>`);
         $(".update-tasks").click(updateTasksClick);
     });
 }
