@@ -33,12 +33,15 @@ function getUsersFromDB() {
           $(document).ready(function (e) {
             $(`button.unfollow[data-user-id="${childKey}"]`).hide()
           });
-   
           $(`button.follow[data-user-id="${childKey}"]`).click(function () {
             addUserFriendToDB(childKey);
             $(`button.follow[data-user-id="${childKey}"]`).hide();
             $(`button.unfollow[data-user-id="${childKey}"]`).show()
-            
+          });
+          $(`button.unfollow[data-user-id="${childKey}"]`).click(function () {
+            removeUserFriendToDB(childKey);
+            $(`button.follow[data-user-id="${childKey}"]`).show();
+            $(`button.unfollow[data-user-id="${childKey}"]`).hide()
           });
         };
       });
@@ -49,7 +52,20 @@ function addUserFriendToDB(key) {
   return database.ref("friend/" + userID).push({
     friend : key
   })
+}
 
+function removeUserFriendToDB(key) {
+  database.ref("friend/" + userID).once('value')
+    .then(function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        var childKey = childSnapshot.key;
+        var childData = childSnapshot.val();
+        if (childData.friend === key) {
+          database.ref("friend/" + userID + "/" + childKey).remove();
+
+        }
+      });
+    });
 }
 
 function addTaskToDB(text, time) {
