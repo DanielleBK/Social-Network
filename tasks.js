@@ -26,12 +26,19 @@ function getUsersFromDB() {
         if (childData.Name !== userName.text()) {
           $(".users-list").prepend(`
           <li>
-          <p>${childData.Name}</p>
-          <button class="follow" data-user-id=${childKey}>Seguir</button>
+           <p>${childData.Name}</p>
+            <button class="follow" data-user-id=${childKey}>Seguir</button>
+            <button class="unfollow" data-user-id=${childKey}>Deixar de Seguir</button>
           </li>`);
-
+          $(document).ready(function (e) {
+            $(`button.unfollow[data-user-id="${childKey}"]`).hide()
+          });
+   
           $(`button.follow[data-user-id="${childKey}"]`).click(function () {
             addUserFriendToDB(childKey);
+            $(`button.follow[data-user-id="${childKey}"]`).hide();
+            $(`button.unfollow[data-user-id="${childKey}"]`).show()
+            
           });
         };
       });
@@ -42,6 +49,7 @@ function addUserFriendToDB(key) {
   return database.ref("friend/" + userID).push({
     friend : key
   })
+
 }
 
 function addTaskToDB(text, time) {
