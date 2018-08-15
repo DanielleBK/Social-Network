@@ -9,7 +9,7 @@ $(document).ready(function() {
 function addTasksClick(event) {
   event.preventDefault();
   var newTask = $(".tasks-input").val();
-  var timeTask = new Date().getHours() + ':' + new Date().getMinutes(); 
+  var timeTask = '\t'+moment().format('LLLL'); 
   var taskFromDB = addTaskToDB(newTask, timeTask);
   crudListItem(newTask, timeTask, taskFromDB.key)
 }
@@ -22,10 +22,9 @@ function addTaskToDB(text, time) {
 }
 
 function getTasksFromDB() {
-
   database.ref("users/" + userID).once('value')
     .then(function (snapshot) {
-      $(".user-name").append(`${snapshot.val().Name}`);
+      $(".user-name").prepend(`${snapshot.val().Name}`);
     });
 
   database.ref("users/").once('value')
@@ -35,7 +34,7 @@ function getTasksFromDB() {
         var childKey = childSnapshot.key;
         var childData = childSnapshot.val();
         if (childData.Name !== userName.text()) {
-          $(".users-list").append(`<li>${childData.Name}</li>`);
+          $(".users-list").prepend(`<li>${childData.Name}</li>`);
         }
       });
     });
@@ -51,7 +50,7 @@ function getTasksFromDB() {
 }
 
 function crudListItem(text, time, key) {
-  $(".tasks-list").append(`
+  $(".tasks-list").prepend(`
   <li>
      <p>${$(".user-name").text()}<span>${time}</span></p>
      <p>${text}</p>
@@ -67,7 +66,7 @@ function crudListItem(text, time, key) {
     $(`button.edit[data-task-id="${key}"]`).click(function() {
         database.ref("tasks/" + userID + "/" + key).remove();
         $(this).parent().remove();
-        $(".tasks-list").append(`<li>
+        $(".tasks-list").prepend(`<li>
         <textarea class="tasks-update">${text}</textarea>
         <button class="update-tasks">Update</button>
         </li>`);
@@ -76,12 +75,11 @@ function crudListItem(text, time, key) {
 }
 
 function updateTasksClick(event) {
-    event.preventDefault();
-    var newTask = $(".tasks-update").val();
-    var timeTask = new Date().getHours() + ':' + new Date().getMinutes();
-    var taskFromDB = addTaskToDB(newTask, timeTask);
-    crudListItem(newTask, timeTask, taskFromDB.key);
-    $(".tasks-update").parent().remove();
-    $(".update-tasks").parent().remove();
-
+  event.preventDefault();
+  var newTask = $(".tasks-update").val();
+  var timeTask = '\t' + moment().format('LLLL');
+  var taskFromDB = addTaskToDB(newTask, timeTask);
+  crudListItem(newTask, timeTask, taskFromDB.key);
+  $(".tasks-update").parent().remove();
+  $(".update-tasks").parent().remove();
 }
