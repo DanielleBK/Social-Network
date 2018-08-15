@@ -7,12 +7,10 @@ $(document).ready(function() {
 
 function signUpClick(event) {
     event.preventDefault();
-
     var email = $(".sign-up-email").val();
     var password = $(".sign-up-password").val();
     var name = $(".sign-up-name").val();
     var age = $(".sign-up-age").val();
-
     createUser(email, password, name, age);
 }
 
@@ -26,7 +24,6 @@ function createUser(email, password, name, age) {
                 Name: name,
                 Idade: age
             });
-
             redirectToTasks(userId);
         })
         .catch(function(error) {
@@ -36,10 +33,8 @@ function createUser(email, password, name, age) {
 
 function signInClick(event) {
     event.preventDefault();
-
     var email = $(".sign-in-email").val();
     var password = $(".sign-in-password").val();
-
     signInUser(email, password);
 }
 
