@@ -16,13 +16,13 @@ function addTasksClick(event) {
   crudListItem(newTask, timeTask, taskFromDB.key)
 }
 
-function userName () {
+function userName() {
   database.ref("users/" + userID).once('value')
     .then(function (snapshot) {
       var name = snapshot.val();
       return (name.Name);
     });
-  
+
 }
 
 function addTaskToDB(text, time) {
@@ -56,32 +56,32 @@ function getUsersFromDB() {
                 if (childFriendData.friend === childKey) {
                   $(`button.unfollow[data-user-id="${childKey}"]`).show();
                   $(`button.follow[data-user-id="${childKey}"]`).hide();
-                                    
+
                 }
-                else if (childFriendData.friend !== childKey && childFriendData.friend !== 0 ){
+                else if (childFriendData.friend !== childKey && childFriendData.friend !== 0) {
                   $(`button.unfollow[data-user-id="${childKey}"]`).hide();
                   $(`button.follow[data-user-id="${childKey}"]`).show();
-                  
+
                 }
               });
             });
-        
-            $(`button.follow[data-user-id="${childKey}"]`).click(function () {
-              addUserFriendToDB(childKey);
-              $(`button.follow[data-user-id="${childKey}"]`).hide();
-              $(`button.unfollow[data-user-id="${childKey}"]`).show()
-            });
-            $(`button.unfollow[data-user-id="${childKey}"]`).click(function () {
-              removeUserFriendToDB(childKey);
-              $(`button.follow[data-user-id="${childKey}"]`).show();
-              $(`button.unfollow[data-user-id="${childKey}"]`).hide()
-            });
 
-             
-       }
+          $(`button.follow[data-user-id="${childKey}"]`).click(function () {
+            addUserFriendToDB(childKey);
+            $(`button.follow[data-user-id="${childKey}"]`).hide();
+            $(`button.unfollow[data-user-id="${childKey}"]`).show()
+          });
+          $(`button.unfollow[data-user-id="${childKey}"]`).click(function () {
+            removeUserFriendToDB(childKey);
+            $(`button.follow[data-user-id="${childKey}"]`).show();
+            $(`button.unfollow[data-user-id="${childKey}"]`).hide()
+          });
+
+
+        }
       });
     });
-  }
+}
 
 function addUserFriendToDB(key) {
   return database.ref("friend/" + userID).push({
@@ -134,19 +134,19 @@ function getTasksFromFriendsDB() {
           .then(function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
               var name = childSnapshot.val();
-             console.log(name.Name)
+              console.log(name.Name)
             });
           });
 
-       database.ref("tasks/" + childFriendData.friend).once('value')
-           .then(function (snapshot) {
-             snapshot.forEach(function (childSnapshot) {
-               var childKey = childSnapshot.key;
-               var childData = childSnapshot.val();
-               addFriendListItem(childData.text, childData.time, name.Name)
-             });
+        database.ref("tasks/" + childFriendData.friend).once('value')
+          .then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+              var childKey = childSnapshot.key;
+              var childData = childSnapshot.val();
+              addFriendListItem(childData.text, childData.time, name.Name)
+            });
           });
-      
+
       });
     });
 }
