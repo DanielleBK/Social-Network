@@ -27,8 +27,7 @@ function getUsersFromDB() {
           console.log(childKey)
           $(".users-list").prepend(`
             <li>
-
-            <img class="" src="http://placekitten.com/100/50" alt=" ">
+            <img class="" src="https://placebeyonce.com/100-100" alt=" ">
               <p>${childData.Name}</p>
               <button class="follow" data-user-id=${childKey}>Seguir</button>
               <button class="unfollow" data-user-id=${childKey}>Não Seguir</button>
@@ -149,7 +148,7 @@ function getTasksFromFriendsDB() {
             snapshot.forEach(function (childSnapshot) {
               var childNameKey = childSnapshot.key;
               var childNameData = childSnapshot.val().Name;
-              
+
             });
           });
          database.ref("tasks/" + childFriendData.friend).once('value')
@@ -206,4 +205,3 @@ function updateTasksClick(event) {
   $(".tasks-update").parent().remove();
   $(".update-tasks").parent().remove();
 }
-

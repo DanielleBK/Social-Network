@@ -78,6 +78,8 @@ html, body {
 #area{
   width: 70%;
   border: solid 1px greenyellow;
+  white-space:pre-wrap;
+  word-break:break-all;
 }
 .add-tasks{
   background-color: #1f73c7;
@@ -97,6 +99,8 @@ html, body {
   margin-left: 10px;
   padding: 20px;
   list-style-type: none;
+    white-space:pre-wrap;
+  word-break:break-all;
 }
 .tasks-list li {
   background-color: white;
