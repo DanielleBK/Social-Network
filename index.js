@@ -24,6 +24,9 @@ function createUser(email, password, name, age) {
                 Name: name,
                 Idade: age
             });
+            database.ref("friend/" + userId).push({
+                friend: 0
+          });
             redirectToTasks(userId);
         })
         .catch(function(error) {
@@ -42,8 +45,10 @@ function signInUser(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(function(response) {
             var userId = response.user.uid;
-            redirectToTasks(userId);
-        })
+          redirectToTasks(userId);
+         
+      })
+      
         .catch(function(error) {
             handleError(error)
         });
