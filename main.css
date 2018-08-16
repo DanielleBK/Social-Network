@@ -3,7 +3,7 @@
   padding: 0px;
 }
 body{
-  background-color: whitesmoke;
+  background-color: white;
   height: 100vh;
 }
 .box-inicial{
@@ -64,7 +64,8 @@ html, body {
 .box-info{
  display: flex;
  justify-content: center;
- background: linear-gradient(90deg, #03a9f4, #9aea45, #03a9f4)
+ background: linear-gradient(90deg, #03a9f4, #9aea45, #03a9f4);
+ height: 41vh;
 }
 .box-info .user-name{
   font-size: 30px;
@@ -79,7 +80,7 @@ html, body {
   width: 70%;
   border: solid 1px greenyellow;
   white-space:pre-wrap;
-  word-break:break-all;
+  word-break: break-all;
 }
 .add-tasks{
   background-color: #1f73c7;
@@ -99,8 +100,6 @@ html, body {
   margin-left: 10px;
   padding: 20px;
   list-style-type: none;
-    white-space:pre-wrap;
-  word-break:break-all;
 }
 .tasks-list li {
   background-color: white;
@@ -108,6 +107,10 @@ html, body {
   margin-top: 5px;
   display: flex;
   flex-direction: column;
+  border: solid 1px black;
+  background-color: whitesmoke;
+  white-space:pre-wrap;
+  word-break: break-all;
 }
 .tasks-list li p span{
   color: grey;
@@ -135,15 +138,15 @@ html, body {
   background-color: white;
   display: flex;
   list-style-type: none;
-  width: 90%;
+  width: 15%;
   margin-left: 5%;
-  height: 22vh;
-}
+  height: 22vh; 
+ }
 
 .users-list li{
   margin-top: 10px;
-  margin-left: 10px;
-  border: 1px solid #1f73c7;
+  margin-right: 20px;
+  margin-left: 3px;
 }
 .follow{
   background-color: green;
@@ -157,10 +160,44 @@ html, body {
   color: white;
   border-bottom: none;
   width: 80px;
-  height: 25px;
+  height: 38px;
 }
 .users-list img{
   border: 1px solid #1f73c7;
+}
+.tasks-list-friends{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  padding: 20px;
+  list-style-type: none
+}
+.text{
+  color: black !importante;
+}
+.tasks-list-friends span{
+  color: grey;
+  font-size:13px;
+}
+.tasks-list-friends li{
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px black;
+  background-color: whitesmoke;
+  white-space:pre-wrap;
+  word-break: break-all;
+}
+.post{
+  font-size: 30px;
+  margin-bottom: -20px;
+  margin-left: 30px;
+}
+.text-f{
+ color: blue;
 }
 footer{
   background-color: black;
@@ -169,4 +206,5 @@ footer{
   display: flex;
   justify-content: center;
   align-content: center;
+  margin-top: 20px;
 }
