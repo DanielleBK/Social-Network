@@ -46,9 +46,8 @@ function signInUser(email, password) {
         .then(function(response) {
             var userId = response.user.uid;
           redirectToTasks(userId);
-         
+
       })
-      
         .catch(function(error) {
             handleError(error)
         });

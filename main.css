@@ -1,12 +1,44 @@
+*{
+  margin:0px;
+  padding: 0px;
+}
+body{
+  background-color: whitesmoke;
+  height: 100vh;
+}
+.box-inicial{
+  flex-direction: column;
+}
+.box-inicial a{
+  align-self: center;
+}
+.box-inicial img{
+  align-self: center;
+  width: 400px;
+  margin-top: 20px;
+}
 h1{
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-color: Black;
+  color: white;
+  width: 100%;
+  height: 70px;
 }
 form{
-  margin-left: 50px;
+ margin-top: 40px;
+ width: 80%;
+ margin-left:10%;
+ background-color: whitesmoke;
+}
+.form-group input{
+  width: 90%;
+  margin-left:5%;
+  margin-top:10px;
 }
 .modal-header{
-  background-color: blueviolet;
+  background-color: blue;
   color: white;
 }
 .modal-body{
@@ -14,7 +46,123 @@ form{
   flex-direction: column;
   background-color: whitesmoke;
 }
+.modal-footer{
+  background-color: greenyellow;
+}
 .modal input{
   margin: 5px;
   border: solid blue 1px;
+}
+html, body {
+  font-family: 'Helvetica', sans-serif;
+}
+.img-tumb img{
+  border-radius: 100%;
+  margin-top: 20px;
+  display: flex;
+}
+.box-info{
+ display: flex;
+ justify-content: center;
+ background: linear-gradient(90deg, #03a9f4, #9aea45, #03a9f4)
+}
+.box-info .user-name{
+  font-size: 30px;
+  margin-left: 60px;
+}
+.input-group{
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+ }
+#area{
+  width: 70%;
+  border: solid 1px greenyellow;
+}
+.add-tasks{
+  background-color: #1f73c7;
+  border-bottom: none;
+  height: 40px;
+  width: 80px;
+  align-self: end;
+  border-radius: 60px;
+  color: white;
+}
+.add-tasks:hover {
+  background: red;
+}
+.tasks-list{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  padding: 20px;
+  list-style-type: none;
+}
+.tasks-list li {
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.tasks-list li p span{
+  color: grey;
+  font-size: 13px;
+  margin-left: 5px;
+}
+.tasks-list li p{
+  margin-left: 10px;
+}
+ .tasks-list button{
+  background-color: #1f73c7;
+  border-bottom: none;
+  color:white;
+  width: 80px;
+  align-self: end;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-right: 10px;
+}
+.tasks-list button:hover {
+  background: greenyellow;
+  color: black;
+}
+.users-list{
+  background-color: white;
+  display: flex;
+  list-style-type: none;
+  width: 90%;
+  margin-left: 5%;
+  height: 22vh;
+}
+
+.users-list li{
+  margin-top: 10px;
+  margin-left: 10px;
+  border: 1px solid #1f73c7;
+}
+.follow{
+  background-color: green;
+  color: white;
+  border-bottom: none;
+  width: 50px;
+  height: 25px;
+}
+.unfollow{
+  background-color: red;
+  color: white;
+  border-bottom: none;
+  width: 80px;
+  height: 25px;
+}
+.users-list img{
+  border: 1px solid #1f73c7;
+}
+footer{
+  background-color: black;
+  color: white;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
