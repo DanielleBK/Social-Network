@@ -48,7 +48,6 @@ function signInUser(email, password) {
           redirectToTasks(userId);
 
       })
-
         .catch(function(error) {
             handleError(error)
         });

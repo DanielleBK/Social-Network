@@ -27,6 +27,7 @@ function getUsersFromDB() {
           console.log(childKey)
           $(".users-list").prepend(`
             <li>
+
             <img class="" src="http://placekitten.com/100/50" alt=" ">
               <p>${childData.Name}</p>
               <button class="follow" data-user-id=${childKey}>Seguir</button>
@@ -41,7 +42,6 @@ function getUsersFromDB() {
                 if (childFriendData.friend === childKey) {
                   $(`button.follow[data-user-id="${childKey}"]`).hide();
                   $(`button.unfollow[data-user-id="${childKey}"]`).show();
-
                 }
                 else if (childFriendData.friend !== childKey && childFriendData.friend !== 0 ){
                   $(`button.unfollow[data-user-id="${childKey}"]`).hide();
@@ -62,9 +62,6 @@ function getUsersFromDB() {
               $(`button.follow[data-user-id="${childKey}"]`).show();
               $(`button.unfollow[data-user-id="${childKey}"]`).hide()
             });
-
-
-
       });
     });
   }
@@ -140,6 +137,33 @@ function getTasksFromFriendsDB() {
     });
 }
 
+function getTasksFromFriendsDB() {
+  database.ref("friend/" + userID).once('value')
+    .then(function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        var childFriendKey = childSnapshot.key;
+        var childFriendData = childSnapshot.val();
+
+        database.ref("users/" + childFriendData.friend).once('value')
+          .then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+              var childNameKey = childSnapshot.key;
+              var childNameData = childSnapshot.val().Name;
+              
+            });
+          });
+         database.ref("tasks/" + childFriendData.friend).once('value')
+           .then(function (snapshot) {
+             snapshot.forEach(function (childSnapshot) {
+               var childKey = childSnapshot.key;
+               var childData = childSnapshot.val();
+               addFriendListItem(childData.text, childData.time)
+             });
+          });
+      });
+    });
+}
+
 function addFriendListItem(text, time) {
   $(".tasks-list").append(`
   <li>
@@ -182,3 +206,4 @@ function updateTasksClick(event) {
   $(".tasks-update").parent().remove();
   $(".update-tasks").parent().remove();
 }
+
