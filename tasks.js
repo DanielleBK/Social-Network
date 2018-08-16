@@ -41,12 +41,15 @@ function getUsersFromDB() {
         var childData = childSnapshot.val();
         if (childData.Name !== userName.text()) {
           $(".users-list").prepend(`
+
             <img class="" src="https://placebeyonce.com/100-50" alt=" ">
+
             <li>
               <p>${childData.Name}</p>
               <button class="follow" data-user-id=${childKey}>Seguir</button>
               <button class="unfollow" data-user-id=${childKey}>Deixar de Seguir</button>
             </li>`);
+
 
             database.ref("friend/" + userID).once('value')
              .then(function (snapshot) {
@@ -125,6 +128,7 @@ function getTasksFromDB() {
 }
 
 function getTasksFromFriendsDB() {
+
  database.ref("friend/" + userID).once('value')
    .then(function (snapshot) {
      snapshot.forEach(function (childSnapshot) {
